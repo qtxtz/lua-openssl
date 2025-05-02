@@ -763,4 +763,68 @@
    obj:*/libcrypto.so.3
    fun:OSSL_DECODER_from_bio
 }
+# CI
+{
+    <insert_a_suppression_name_here>
+    Memcheck:Leak
+    match-leak-kinds: indirect
+    fun:malloc
+    fun:CRYPTO_strdup
+    obj:*/libcrypto.so.*
+    obj:*/libcrypto.so.*
+    fun:OSSL_PROVIDER_try_load
+}
 
+{
+    <insert_a_suppression_name_here>
+    Memcheck:Leak
+    match-leak-kinds: indirect
+    fun:malloc
+    fun:CRYPTO_strdup
+    fun:BIO_meth_new
+    obj:*/libcrypto.so.*
+    obj:*/libcrypto.so.*
+    obj:*/libcrypto.so.*
+    obj:*/libcrypto.so.*
+    fun:OSSL_PROVIDER_try_load
+}
+
+{
+    <insert_a_suppression_name_here>
+    Memcheck:Leak
+    match-leak-kinds: indirect
+    fun:malloc
+    fun:CRYPTO_zalloc
+    obj:*/libcrypto.so.*
+    obj:*/libcrypto.so.*
+    obj:*/libcrypto.so.*
+    fun:OSSL_PROVIDER_try_load
+}
+
+{
+    <insert_a_suppression_name_here>
+    Memcheck:Leak
+    match-leak-kinds: indirect
+    fun:malloc
+    fun:OPENSSL_sk_deep_copy
+    obj:*/libcrypto.so.*
+    obj:*/libcrypto.so.*
+    fun:OSSL_PROVIDER_try_load
+}
+
+{
+    <insert_a_suppression_name_here>
+    Memcheck:Leak
+    match-leak-kinds: reachable
+    fun:malloc
+    fun:CRYPTO_zalloc
+    fun:CRYPTO_THREAD_lock_new
+    obj:*/libcrypto.so.*
+    fun:EVP_CIPHER_meth_new
+    obj:*/libcrypto.so.*
+    obj:*/libcrypto.so.*
+    fun:ENGINE_register_ciphers
+    fun:ENGINE_register_complete
+    fun:ENGINE_register_all_complete
+    fun:OPENSSL_init_crypto
+}
