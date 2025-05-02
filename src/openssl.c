@@ -437,11 +437,12 @@ openssl_finalize(void)
 
 #if (OPENSSL_VERSION_NUMBER > 0x10100000L && !IS_LIBRESSL())                                       \
   || LIBRESSL_VERSION_NUMBER > 0x30600000L
-#if (OPENSSL_VERSION_NUMBER > 0x30000000L && !IS_LIBRESSL())
+  /* NOTE: OPENSSL 3.0 will cleanup automatically */
+#if (OPENSSL_VERSION_NUMBER > 0x30100000L && !IS_LIBRESSL())
   /* This will be called automatically by the library when the thread exits. */
-  OPENSSL_thread_stop();
   OSSL_PROVIDER_unload(openssl);
   OSSL_PROVIDER_unload(legacy);
+  OPENSSL_thread_stop();
 #endif
   /* This is initiated automatically on application exit */
   OPENSSL_cleanup();
